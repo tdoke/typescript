@@ -1,0 +1,27 @@
+I use interfaces in the same way I would use them in other languages: to define the shape and methods of an object:
+
+interface Named {
+    readonly name: string;
+    setName(name: string): void;
+}
+class User implements Named { ... }
+class Dog implements Named { ... }
+I use type to define generic transformations for other types:
+
+type Nullable<T> = T | null | undefined;
+type NonNull<T> = T extends (null | undefined) ? never : T;
+Or aliases for long complex types that are cumbersome to type manually:
+
+type Primitive = number | string | boolean | null | undefined;
+And while it's possible to use type for defining the shape of an object:
+
+type Named = {
+    readonly name: string;
+    setName(name: string): void;
+}
+I avoid this, because with interface it is more clear than it is intended to be implemented and used as a 
+contract regarding object usage, whereas type is usually used for creating aliases of other types (making the code 
+more concise) or to reflect the runtime transformations of objects on the type level. E.g. if my runtime ensures that 
+an object is not null or undefined, I may use the NonNull from the above example to narrow its type.
+
+TO DEFINE SHAPE OF AN OBJECT USE INTERFACE, TO DEFINE A PROPERTY OF OBJECT USE TYPE.
